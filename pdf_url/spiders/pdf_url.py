@@ -16,6 +16,8 @@ class PdfUrlSpider(CrawlSpider):
 
     item = PdfUrlItem()
 
+    counter = 1
+
     
     def parse_httpresponse(self, response):
 
@@ -29,7 +31,8 @@ class PdfUrlSpider(CrawlSpider):
 
         # Scraping data
         if goes_to_pdf:
-            print('PDF Link Found')
+            print(counter, 'PDF Link Found')
+            counter += 1
             print(response.url)
             print(str(response.url).split('/')[-1])
             print(goes_to_pdf)
