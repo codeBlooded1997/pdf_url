@@ -29,13 +29,12 @@ class PdfUrlSpider(CrawlSpider):
 
         # Scraping data
         if goes_to_pdf:
-
             print('PDF Link Found')
             print(response.url)
             print(str(response.url).split('/')[-1])
             print(goes_to_pdf)
             print()
-          
+
             item['filename'] = response.url.split('/')[-1]
             item['url'] = response.url
 
@@ -58,4 +57,4 @@ class PdfUrlSpider(CrawlSpider):
 
 
         # write that data to the csv
-        #return
+        return
