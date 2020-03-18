@@ -26,29 +26,24 @@ class PdfUrlSpider(CrawlSpider):
 
     # When ever we extarct the allowed links we gonn asend it to this funcion to proccess
     def parse_httpresponse(self, response):
-        # response holds all the data we got back from spider
-        # We are goinig to find pdf files using meta data form response.headers/Content-Type
-        #print(response.url)
-        #print("file name is : {}".foramt(response.url.split('/')[-1]))
-
-        item = PdfUrlItem()     # for saving scraped data
+        print(response.url)
+        print(response.headers.split('/')[-1])
+        print()
+        #item = PdfUrlItem()     # for saving scraped data
 
         # check if the link goes to a pdf
-        if 'Content-Type' in response.headers.keys():
-            links_to_pdf = 'application/pdf' in response.headers['Content-Type']
-            print(response.url)
-            print("file name is : {}".foramt(response.url.split('/')[-1]))
-        else:
-            return None
-
+        #if b'Content-Type' in response.headers.keys():
+        #    links_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
+        #else:
+        #    return None
 
         # if it does, scrape it
-        if links_to_pdf:
-            item['filename'] = response.url.split('/')[-1]
-            item['url'] = response.url
+        #if links_to_pdf:
+        #    item['filename'] = response.url.split('/')[-1]
+        #    item['url'] = response.url
         # if not, ignore it and move on to the next link
-        else:
-            return None
+        #else:
+        #    return None
 
 
         # write that data to the csv
