@@ -40,4 +40,4 @@ class PdfUrlSpider(CrawlSpider):
             return None
 
         # write that data to the csv
-        return
+        return item
