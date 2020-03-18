@@ -25,9 +25,10 @@ class PdfUrlSpider(CrawlSpider):
             goes_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
             
             if goes_to_pdf:
-                print('Link found')
+
+                print('PDF Link Found')
                 print(response.url)
-                pritn("File name is : {}".fromat(response.url.split('/')[-1]))
+                #pritn(str(response.url).split('/')[-1])
                 print(goes_to_pdf)
                 print()
               
