@@ -14,4 +14,3 @@ class PdfUrlItem(scrapy.Item):
 
     filename = scrapy.Field()
     url = scrapy.Field()
- 

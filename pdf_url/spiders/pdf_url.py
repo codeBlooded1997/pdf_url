@@ -1,6 +1,7 @@
 import scrapy
 
-from scrapy.spiders import CrawlSpider
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 
 
 # scrapy.Spider (basic spider | Doesn't require rules method to define)
@@ -23,8 +24,18 @@ class PdfUrlSpider(CrawlSpider):
     rules = [Rule(LinkExtractor(allow=''), callback='parse_httpresponse', follow=True)]
 
     # When ever we extarct the allowed links we gonn asend it to this funcion to proccess
-    def parse_httpresponse():
+    def parse_httpresponse(self, response):
+        # response holds all the data we got back from spider
+        print(response)
+        
 
 
+        # check if the link goes to a pdf
+
+        # if it does, scrape it
+
+        # if not, ignore it and move on to the next link
+
+        # write that data to the csv
 
         return
