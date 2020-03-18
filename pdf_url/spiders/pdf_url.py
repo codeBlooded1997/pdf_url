@@ -24,19 +24,24 @@ class PdfUrlSpider(CrawlSpider):
         if b'Content-Type' in response.headers.keys():
             goes_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
             
-            if goes_to_pdf:
-
-                print('PDF Link Found')
-                print(response.url)
-                #pritn(str(response.url).split('/')[-1])
-                print(goes_to_pdf)
-                print()
-              
-                item['filename'] = response.url.split('/')[-1]
-                item['url'] = response.url
-
         else:
             return None
+
+
+
+        if goes_to_pdf:
+
+            print('PDF Link Found')
+            print(response.url)
+            print(str(response.url).split('/')[-1])
+            print(goes_to_pdf)
+            print()
+          
+            item['filename'] = response.url.split('/')[-1]
+            item['url'] = response.url
+
+        else:
+            pass
 
 
         #if b'Content-Type' in response.headers.keys():
