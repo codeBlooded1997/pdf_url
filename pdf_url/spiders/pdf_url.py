@@ -45,10 +45,16 @@ class PdfUrlSpider(CrawlSpider):
         # If it does Scrape data
         if links_to_pdf:
             if content_disposition_exists:
+                print('ALG 1')
                 print('Content-Disposition EXISTS')
-                item['filename'] = re.search('filename="(.+)"', response.headers['Content-Disposition'])
+                print(response.url)
+                print(re.search('filename="(.+)"', response.headers['Content-Disposition']))
+                print(links_to_pdf)
+                print()
+                item['filename'] = re.search('filename="(.+)"', str(response.headers['Content-Disposition'])).group(1)
                 item['url'] = response.url
             else:
+                print('ALG 2')
                 print('PDF Link Found')
                 print(response.url)
                 print(str(response.url).split('/')[-1])
