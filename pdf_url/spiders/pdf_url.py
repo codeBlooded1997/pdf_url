@@ -34,7 +34,7 @@ class PdfUrlSpider(CrawlSpider):
 
         # checking if url goes to pdf
         if b'Content-Type' in response.headers.keys():
-            # Boolian
+            # If I want to scrape different type of data I need to change the data type application/pdf
             links_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
 
         else:
