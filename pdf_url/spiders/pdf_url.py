@@ -4,6 +4,8 @@ from pdf_url.items import PdfUrlItem    # importing the data type we defined in 
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
+import re
+
 
 class PdfUrlSpider(CrawlSpider):
     # This is required and this is how we refer to the spider form commandline
@@ -21,7 +23,7 @@ class PdfUrlSpider(CrawlSpider):
     #   Follow all links (click on them)to find more links.
     rules = [Rule(LinkExtractor(allow=''), callback='parse_httpresponse', follow=True)]
 
-    
+
     def parse_httpresponse(self, response):
         # Checking server response
         if response.status != 200:
@@ -37,16 +39,23 @@ class PdfUrlSpider(CrawlSpider):
 
         else:
             return None
+        # Checking if Content-Disposition exists in response headers
+        content_disposition_exists = b'Content-Disposition' in response.headers.keys()
 
         # If it does Scrape data
         if links_to_pdf:
-            print('PDF Link Found')
-            print(response.url)
-            print(str(response.url).split('/')[-1])
-            print(links_to_pdf)
-            print()
-            item['filename'] = response.url.split('/')[-1]
-            item['url'] = response.url
+            if content_disposition_exists:
+                print('Content-Disposition EXISTS')
+                item['filename'] = re.search('filename="(.+)"', response.headers['Content-Disposition'])
+                item['url'] = response.url
+            else:
+                print('PDF Link Found')
+                print(response.url)
+                print(str(response.url).split('/')[-1])
+                print(links_to_pdf)
+                print()
+                item['filename'] = response.url.split('/')[-1]
+                item['url'] = response.url
 
         # if not, ignore it and move on to the next link
         else:
