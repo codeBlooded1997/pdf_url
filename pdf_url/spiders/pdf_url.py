@@ -6,22 +6,33 @@ from scrapy.linkextractors import LinkExtractor
 
 
 class PdfUrlSpider(CrawlSpider):
+    # This is required and this is how we refer to the spider form commandline
     name = 'pdf_spider'
 
+    # List of domains that spider is allowed to scrape
     allowed_domains = ['adobe.com']
 
+    # Spider statrts to crawl from this url
     start_urls = ['https://www.adobe.com']
 
+    #   This RULE says:
+    #   Allows all the links that cam be scraped.
+    #   Call parse_httpresponse on every extracted link.
+    #   Follow all links (click on them)to find more links.
     rules = [Rule(LinkExtractor(allow=''), callback='parse_httpresponse', follow=True)]
 
     
-
     def parse_httpresponse(self, response):
+        # Checking server response
+        if response.status != 200:
+            return None
+
 
         item = PdfUrlItem()
-        
+
         # checking if url goes to pdf
         if b'Content-Type' in response.headers.keys():
+            # Boolian
             links_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
 
         else:
