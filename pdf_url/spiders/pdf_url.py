@@ -14,10 +14,12 @@ class PdfUrlSpider(CrawlSpider):
 
     rules = [Rule(LinkExtractor(allow=''), callback='parse_httpresponse', follow=True)]
 
-    item = PdfUrlItem()
+    
 
     def parse_httpresponse(self, response):
 
+        item = PdfUrlItem()
+        
         # checking if url goes to pdf
         if b'Content-Type' in response.headers.keys():
             links_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
