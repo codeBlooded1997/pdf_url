@@ -19,7 +19,7 @@ class PdfUrlSpider(CrawlSpider):
     def parse_httpresponse(self, response):
 
         # checking if url goes to pdf
-        if 'Content-Type' in response.headers.keys():
+        if b'Content-Type' in response.headers.keys():
             links_to_pdf = 'application/pdf' in str(response.headers['Content-Type'])
 
         else:
